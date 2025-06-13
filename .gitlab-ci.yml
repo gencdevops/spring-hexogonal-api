@@ -1,0 +1,27 @@
+stages:
+  - pre-check
+  - install
+  - test
+  - analysis
+  - build
+  - security-gate
+  - before-stage
+  - stage-deploy
+  - pre-deploy
+  - deploy
+  - post-deploy
+
+variables:
+  TRIBE_NAME: 'local-commerce'
+  TEAM_NAME: 'ads'
+  K8S_NAMESPACE: 'seller-ads'
+  PROJECT_NAME: 'reservation-api'
+  SONAR_PROJECT_KEY: 'localcommerce-ads-reservationapi-service'
+  TASK_PREFIX: "ADS-"
+  DOCKERFILE_IN_ROOT: 'true'
+
+include:
+  - project: 'technology/tgo/local-commerce/seller/ads/infrastructure/pipelines'
+    file:
+      # Java project template
+      - '/template/pipeline-for-maven-jdk-21-projects.yml'

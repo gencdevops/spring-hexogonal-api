@@ -1,0 +1,94 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: 'reservation API'
+    description: 'Ads Budget Management'
+  profiles:
+    active: test
+  datasource:
+    name: ~
+    password: ~
+    type: com.zaxxer.hikari.HikariDataSource
+    url: "jdbc:h2:mem:reservationapi;INIT=create domain if not exists jsonb as other;MODE=PostgreSQL;"
+    username: ~
+    driver-class-name: org.h2.Driver
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  lifecycle:
+    timeout-per-shutdown-phase: "50s"
+
+server:
+  servlet:
+    context-path: /
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  shutdown: graceful
+
+security:
+  api:
+    tokens:
+      localcommerce-ads-internal: "token"
+  slack:
+    failed-channel-token: failed
+    success-channel-token: failed
+
+swagger:
+  host:
+    url: localhost:8057
+    protocol: http
+  contact:
+    name: Trendyol
+    url: https://developers.trendyol.com
+    email: localcom.ads@trendyol.com
+  license:
+    name: Trendyol
+    url: https://www.trendyol.com/kullanim_kosullari.html
+  version: '@version@'
+
+management:
+  endpoints:
+    web:
+      base-path: /_monitoring
+
+logging:
+  facility: LocalCommerce.Ads.reservation-API
+  level:
+    springfox.documentation: ERROR
+    org.springframework: ERROR
+    org.springframework.kafka: ERROR
+    org.apache.kafka: ERROR
+    org.hibernate: ERROR
+    org.apache.http: ERROR
+    org.apache.commons: ERROR
+    com.zaxxer.hikari: INFO
+    com.trendyol: DEBUG
+
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: basic
+
+---
+spring:
+  config:
+    activate:
+      on-profile: stage, prod
+
+logging:
+  pattern:
+    console: "{\"time\": \"%d\", \"level\": \"%p\", \"agent-name\": \"%X{x-agentname}\", \"correlation-id\": \"%X{x-correlationid}\", \"executor-user\": \"%X{x-executor-user}\", \"remote-host\": \"%X{x-remote-host}\", \"source\": \"%logger{63}:%L\", \"msg\": \"%replace(%replace(%m%wEx{6}){'[\r\n]+', '\\n'}){'\"', ''}%nopex\", \"app_name\": \"@project.name@\", \"log_type\": \"%X{log_type}\"}%n"
+  level:
+    com.zaxxer.hikari: ERROR
+    com.trendyol: INFO
+
