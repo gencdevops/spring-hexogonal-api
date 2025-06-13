@@ -1,0 +1,113 @@
+spring:
+  cloud:
+    compatibility-verifier:
+      enabled : false
+  main:
+    banner-mode: off
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  application:
+    name: '@project.name@'
+    description: '@project.description@'
+  profiles:
+    active: local
+  messages:
+    basename: messages/messages
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://10.42.186.54:5432/reservation
+    dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+    username: reservation_appuser
+    password: 3m925RoVjh8G
+    hikari:
+      pool-name: ads-reservation-api-pool
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+      maximum-pool-size: 5
+      connection-timeout: 5000
+      minimum-idle: 5
+      idle-timeout: 30000
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: POSTGRESQL
+    show-sql: true
+    open-in-view: false
+    hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate.default_batch_fetch_size: 100
+      hibernate.id.new_generator_mappings: true
+      hibernate.generate_statistics: false
+      hibernate.hbm2ddl.auto: none
+      hibernate.enable_lazy_load_no_trans: true
+      hibernate.globally_quoted_identifiers: true
+      hibernate.jdbc.batch_size: 30
+      hibernate.jdbc.time_zone: Asia/Istanbul
+  lifecycle:
+    timeout-per-shutdown-phase: "50s"
+
+server:
+  servlet:
+    context-path: /
+  port: 8080
+  error:
+    include-binding-errors: always
+    include-message: always
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      base-path: /_monitoring
+      exposure:
+        include: "health,prometheus"
+
+
+logging:
+  facility: LocalCommerce.Ads.Reservation-API
+  level:
+    springfox.documentation: ERROR
+    org.springframework: ERROR
+    org.springframework.kafka: ERROR
+    org.apache.kafka: ERROR
+    org.hibernate: ERROR
+    org.apache.http: ERROR
+    org.apache.commons: ERROR
+    com.zaxxer.hikari: INFO
+    com.trendyol: DEBUG
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: basic
+      advert-api:
+        url: https://localcommerce-ads-advertapi-service.stage.tgointernals.com
+        connectTimeout: 2000
+        readTimeout: 5000
+
+
+springdoc:
+  swagger-ui:
+    path: /
+
+---
+spring:
+  config:
+    activate:
+      on-profile: stage, prod
+
+logging:
+  pattern:
+    console: "{\"time\": \"%d\", \"level\": \"%p\", \"agent-name\": \"%X{x-agentname}\", \"correlation-id\": \"%X{correlation-id}\", \"executor-user\": \"%X{x-executor-user}\", \"remote-host\": \"%X{x-remote-host}\", \"source\": \"%logger{63}:%L\", \"msg\": \"%replace(%replace(%m%wEx{6}){'[\r\n]+', '\\n'}){'\"', ''}%nopex\", \"app_name\": \"@project.name@\", \"log_type\": \"%marker\"}%n"
+  level:
+    org.springframework: WARN
+    com.trendyol: INFO
+

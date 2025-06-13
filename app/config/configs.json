@@ -1,0 +1,16 @@
+{
+  "spring": {
+  },
+  "feign": {
+    "client": {
+      "config": {
+        "default": {
+          "loggerLevel": "basic"
+        }
+      }
+    }
+  },
+  "business": {
+
+  }
+}
