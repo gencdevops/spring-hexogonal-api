@@ -255,14 +255,7 @@
     </build>
 
     <repositories>
-        <repository>
-            <id>tgo-gitlab-maven</id>
-            <url>https://gitlab.tygoinfra.com/api/v4/projects/278/packages/maven</url>
-        </repository>
-        <repository>
-            <id>tgo-seller-core-maven</id>
-            <url>https://gitlab.tygoinfra.com/api/v4/projects/754/packages/maven</url>
-        </repository>
+
         <repository>
             <id>spring</id>
             <url>https://repo.spring.io/milestone</url>
