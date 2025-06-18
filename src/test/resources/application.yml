@@ -45,14 +45,7 @@ swagger:
   host:
     url: localhost:8057
     protocol: http
-  contact:
-    name: Trendyol
-    url: https://developers.trendyol.com
-    email: localcom.ads@trendyol.com
-  license:
-    name: Trendyol
-    url: https://www.trendyol.com/kullanim_kosullari.html
-  version: '@version@'
+
 
 management:
   endpoints:
@@ -70,7 +63,6 @@ logging:
     org.apache.http: ERROR
     org.apache.commons: ERROR
     com.zaxxer.hikari: INFO
-    com.trendyol: DEBUG
 
 
 feign:
@@ -90,5 +82,4 @@ logging:
     console: "{\"time\": \"%d\", \"level\": \"%p\", \"agent-name\": \"%X{x-agentname}\", \"correlation-id\": \"%X{x-correlationid}\", \"executor-user\": \"%X{x-executor-user}\", \"remote-host\": \"%X{x-remote-host}\", \"source\": \"%logger{63}:%L\", \"msg\": \"%replace(%replace(%m%wEx{6}){'[\r\n]+', '\\n'}){'\"', ''}%nopex\", \"app_name\": \"@project.name@\", \"log_type\": \"%X{log_type}\"}%n"
   level:
     com.zaxxer.hikari: ERROR
-    com.trendyol: INFO
 
