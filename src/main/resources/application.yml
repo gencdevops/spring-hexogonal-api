@@ -56,7 +56,7 @@ management:
         include: "health,prometheus"
 
 logging:
-  facility: LocalCommerce.Ads.Reservation-API
+  facility: Reservation-API
   level:
     springfox.documentation: ERROR
     org.springframework: ERROR
