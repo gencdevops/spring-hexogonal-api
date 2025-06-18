@@ -17,15 +17,6 @@ public class SwaggerConfig {
         return GroupedOpenApi
             .builder()
             .group("custom-headers")
-            .addOperationCustomizer((operation, handlerMethod) -> {
-                if (operation.getParameters() == null) {
-                    operation.parameters(parameters);
-                } else {
-                    operation.getParameters().addAll(parameters);
-                }
-
-                return operation;
-            })
             .build();
     }
 }
