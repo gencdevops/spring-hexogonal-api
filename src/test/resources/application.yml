@@ -3,7 +3,7 @@ spring:
     banner-mode: off
   application:
     name: 'reservation API'
-    description: 'Ads Budget Management'
+    description: ''
   profiles:
     active: test
   datasource:
@@ -33,10 +33,7 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
   shutdown: graceful
 
-security:
-  api:
-    tokens:
-      localcommerce-ads-internal: "token"
+
   slack:
     failed-channel-token: failed
     success-channel-token: failed
@@ -53,7 +50,7 @@ management:
       base-path: /_monitoring
 
 logging:
-  facility: LocalCommerce.Ads.reservation-API
+  facility: reservation-API
   level:
     springfox.documentation: ERROR
     org.springframework: ERROR
