@@ -16,7 +16,7 @@ public class BasicAuthConfig {
 
     @Getter
     public enum TokenType {
-        INTERNAL("localcommerce-ads-internal");
+        INTERNAL("");
 
         private final String type;
 
